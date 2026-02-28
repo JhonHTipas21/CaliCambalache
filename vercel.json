@@ -1,0 +1,45 @@
+{
+    "buildCommand": "npx tailwindcss -i ./css/input.css -o ./css/main.css --minify",
+    "outputDirectory": ".",
+    "rewrites": [
+        {
+            "source": "/donante/(.*)",
+            "destination": "/pages/donante/$1"
+        },
+        {
+            "source": "/receptora/(.*)",
+            "destination": "/pages/receptora/$1"
+        },
+        {
+            "source": "/admin/(.*)",
+            "destination": "/pages/admin/$1"
+        },
+        {
+            "source": "/registro",
+            "destination": "/pages/registro.html"
+        },
+        {
+            "source": "/login",
+            "destination": "/pages/login.html"
+        },
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
+        }
+    ],
+    "headers": [
+        {
+            "source": "/(.*)",
+            "headers": [
+                {
+                    "key": "X-Content-Type-Options",
+                    "value": "nosniff"
+                },
+                {
+                    "key": "X-Frame-Options",
+                    "value": "DENY"
+                }
+            ]
+        }
+    ]
+}

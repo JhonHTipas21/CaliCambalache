@@ -1,0 +1,26 @@
+{
+    "name": "calicambalache",
+    "version": "1.0.0",
+    "description": "Aplicación web comunitaria para reducir el desperdicio de alimentos en Cali, Colombia.",
+    "private": true,
+    "scripts": {
+        "dev": "npx tailwindcss -i ./css/input.css -o ./css/main.css --watch & npx live-server --port=5500 --open=index.html",
+        "build:css": "npx tailwindcss -i ./css/input.css -o ./css/main.css --minify",
+        "build": "npx tailwindcss -i ./css/input.css -o ./css/main.css --minify"
+    },
+    "devDependencies": {
+        "tailwindcss": "^3.4.0",
+        "postcss": "^8.4.33",
+        "autoprefixer": "^10.4.17",
+        "live-server": "^1.2.2"
+    },
+    "keywords": [
+        "donaciones",
+        "alimentos",
+        "cali",
+        "comunidad",
+        "desperdicio"
+    ],
+    "author": "TripleBug",
+    "license": "MIT"
+}
