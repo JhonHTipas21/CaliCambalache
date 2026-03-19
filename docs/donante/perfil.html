@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mi Perfil — Cali Cambalache">
+  <title>Mi Perfil — Cali Cambalache</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="../index.html" class="navbar-brand">
+      <span class="logo-tri">A</span>
+      Cali Cambalache
+    </a>
+    <div class="navbar-links">
+      <a href="../index.html">Inicio</a>
+      <a href="crear-publicacion.html">Donar</a>
+      <a href="../mensajes.html">Mensajes</a>
+    </div>
+    <a href="perfil.html" class="navbar-profile active">
+      <span class="profile-icon">A</span>
+      Perfil
+    </a>
+  </nav>
+
+  <!-- ═══════════ PERFIL ═══════════ -->
+  <div class="dashboard-wrapper">
+
+    <h1 class="page-title">Mi Perfil 👤</h1>
+    <p class="page-subtitle">Administra tu información y preferencias.</p>
+
+    <div class="profile-grid">
+
+      <!-- Sidebar -->
+      <div class="profile-sidebar">
+        <div class="profile-avatar">C</div>
+        <h3>Carlos Ramírez</h3>
+        <p class="role">Donante</p>
+        <div class="profile-stats">
+          <p><strong>28</strong> donaciones</p>
+          <p><strong>120 kg</strong> rescatados</p>
+          <p class="text-sm text-muted mt-4">Miembro desde Ene 2026</p>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="profile-main">
+        <h3 class="mb-6">Información Personal</h3>
+        <form action="perfil.html" method="get">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nombre">Nombre</label>
+              <input type="text" id="nombre" class="form-control" value="Carlos">
+            </div>
+            <div class="form-group">
+              <label for="apellido">Apellido</label>
+              <input type="text" id="apellido" class="form-control" value="Ramírez">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" class="form-control" value="carlos.ramirez@email.com">
+          </div>
+
+          <div class="form-group">
+            <label for="tel">Teléfono</label>
+            <input type="tel" id="tel" class="form-control" value="+57 315 555 1234">
+          </div>
+
+          <div class="form-group">
+            <label for="zona">Zona preferida</label>
+            <input type="text" id="zona" class="form-control" value="San Antonio, Cali">
+          </div>
+
+          <div class="form-group">
+            <label for="bio">Sobre mí</label>
+            <textarea id="bio" class="form-control">Donante comprometido con reducir el desperdicio de alimentos en el sur de Cali. Trabajo con mercados locales.</textarea>
+          </div>
+
+          <div style="display:flex; gap:var(--sp-4); justify-content:flex-end; margin-top:var(--sp-6);">
+            <a href="dashboard.html" class="btn btn-outline">Cancelar</a>
+            <a href="perfil.html" class="btn btn-primary">💾 Guardar Cambios</a>
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+
+</html>

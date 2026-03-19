@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Solicitudes — Cali Cambalache">
+  <title>Solicitudes — Cali Cambalache</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="../index.html" class="navbar-brand">
+      <span class="logo-tri">A</span>
+      Cali Cambalache
+    </a>
+    <div class="navbar-links">
+      <a href="../index.html">Inicio</a>
+      <a href="crear-publicacion.html">Donar</a>
+      <a href="../mensajes.html">Mensajes</a>
+    </div>
+    <a href="perfil.html" class="navbar-profile">
+      <span class="profile-icon">A</span>
+      Perfil
+    </a>
+  </nav>
+
+  <!-- ═══════════ SOLICITUDES ═══════════ -->
+  <div class="dashboard-wrapper">
+
+    <h1 class="page-title">Solicitudes 📋</h1>
+    <p class="page-subtitle">Organizaciones que quieren recibir tus alimentos.</p>
+
+    <!-- Pendientes -->
+    <div class="section-card">
+      <div class="section-card-header">
+        <h3>Pendientes de Respuesta</h3>
+        <span class="badge badge-orange">3 pendientes</span>
+      </div>
+      <div class="section-card-body" style="padding:0;">
+        <table>
+          <thead>
+            <tr>
+              <th>Organización</th>
+              <th>Publicación</th>
+              <th>Cantidad</th>
+              <th>Fecha</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Comedor Esperanza</strong></td>
+              <td>Pan artesanal</td>
+              <td>10 und</td>
+              <td>18/03/2026</td>
+              <td>
+                <a href="solicitudes.html" class="btn btn-primary btn-sm">Aceptar</a>
+                <a href="solicitudes.html" class="btn btn-outline btn-sm">Rechazar</a>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Fundación Solidaria</strong></td>
+              <td>Arroz integral</td>
+              <td>2 kg</td>
+              <td>17/03/2026</td>
+              <td>
+                <a href="solicitudes.html" class="btn btn-primary btn-sm">Aceptar</a>
+                <a href="solicitudes.html" class="btn btn-outline btn-sm">Rechazar</a>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Hogar de Paso</strong></td>
+              <td>Enlatados varios</td>
+              <td>6 und</td>
+              <td>16/03/2026</td>
+              <td>
+                <a href="solicitudes.html" class="btn btn-primary btn-sm">Aceptar</a>
+                <a href="solicitudes.html" class="btn btn-outline btn-sm">Rechazar</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Historial -->
+    <div class="section-card">
+      <div class="section-card-header">
+        <h3>Historial</h3>
+      </div>
+      <div class="section-card-body" style="padding:0;">
+        <table>
+          <thead>
+            <tr>
+              <th>Organización</th>
+              <th>Publicación</th>
+              <th>Fecha</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Comedor Esperanza</td>
+              <td>Verduras frescas (3kg)</td>
+              <td>12/03/2026</td>
+              <td><span class="badge badge-green">Completada</span></td>
+            </tr>
+            <tr>
+              <td>Fundación Solidaria</td>
+              <td>Leche deslactosada (3L)</td>
+              <td>10/03/2026</td>
+              <td><span class="badge badge-green">Completada</span></td>
+            </tr>
+            <tr>
+              <td>Red de Comedores</td>
+              <td>Frutas surtidas (4kg)</td>
+              <td>05/03/2026</td>
+              <td><span class="badge badge-red">Expirada</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <a href="dashboard.html" class="btn btn-outline mt-6">← Volver al panel</a>
+
+  </div>
+
+</body>
+
+</html>

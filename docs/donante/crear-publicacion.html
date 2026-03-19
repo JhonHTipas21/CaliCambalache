@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Detalles de la Donación — Cali Cambalache">
+  <title>Crear Donación — Cali Cambalache</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="../index.html" class="navbar-brand">
+      <span class="logo-tri">A</span>
+      Cali Cambalache
+    </a>
+    <div class="navbar-links">
+      <a href="../index.html">Inicio</a>
+      <a href="crear-publicacion.html" class="active">Donar</a>
+      <a href="../mensajes.html">Mensajes</a>
+    </div>
+    <a href="perfil.html" class="navbar-profile">
+      <span class="profile-icon">A</span>
+      Perfil
+    </a>
+  </nav>
+
+  <!-- ═══════════ DONATION MODAL ═══════════ -->
+  <div class="donation-wrapper">
+    <div class="donation-card">
+
+      <!-- Header -->
+      <div class="donation-header">
+        <h2>Detalles de la Donación 🧡</h2>
+        <a href="dashboard.html" class="close-btn">✕</a>
+      </div>
+      <p class="donation-subtitle">Completa los detalles a continuación para coordinar la entrega.</p>
+
+      <!-- Form -->
+      <form action="mis-publicaciones.html" method="get">
+
+        <!-- Row 1: Ubicación + Alimento -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="ubicacion">Ubicación de la entrega en Cali</label>
+            <div class="form-icon-input">
+              <input type="text" id="ubicacion" class="form-control" value="Barrio San Antonio, Carrera 4">
+              <span class="input-icon">📍</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="alimento">Alimento(s)</label>
+            <input type="text" id="alimento" class="form-control" value="Pasta con Vegetales">
+          </div>
+        </div>
+
+        <!-- Row 2: Horario + Fecha -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="horario">Horario preferido</label>
+            <div class="form-icon-input">
+              <input type="text" id="horario" class="form-control" value="Entre 11:00 AM y 2:00 PM">
+              <span class="input-icon">🕐</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="fecha">Día de entrega</label>
+            <div class="form-icon-input">
+              <input type="date" id="fecha" class="form-control" value="2025-05-02">
+              <span class="input-icon">📅</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slider: Cantidad -->
+        <div class="slider-section">
+          <div class="slider-header">
+            <span class="section-label">Cantidad (kg o porciones)</span>
+            <span class="slider-value">150 Kg/Porc.</span>
+          </div>
+          <div class="slider-track">
+            <div class="slider-fill" style="width:26%;"></div>
+          </div>
+          <div class="slider-labels">
+            <span>Mín 20</span>
+            <span>Máx 500</span>
+          </div>
+        </div>
+
+        <!-- Photos -->
+        <div class="photos-section">
+          <div class="section-label">Fotos de los alimentos</div>
+          <div class="photos-grid">
+            <div class="photo-thumb">🍝</div>
+            <a href="crear-publicacion.html" class="photo-add">
+              <span class="plus-icon">+</span>
+              <span>Agregar más</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="donation-footer">
+          <div class="checkbox-row">
+            <div class="checkbox-icon">✓</div>
+            <span class="checkbox-text">
+              Aseguro que la calidad e higiene de los alimentos se ha mantenido según las pautas de seguridad estándar.
+            </span>
+          </div>
+          <a href="mis-publicaciones.html" class="btn btn-primary btn-lg" style="white-space:nowrap;">
+            Confirmar Donación
+          </a>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+</body>
+
+</html>

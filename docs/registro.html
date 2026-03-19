@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Registro — Cali Cambalache">
+  <title>Registro — Cali Cambalache</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand">
+      <span class="logo-tri">A</span>
+      Cali Cambalache
+    </a>
+    <div class="navbar-links">
+      <a href="index.html">Inicio</a>
+      <a href="donante/crear-publicacion.html">Donar</a>
+      <a href="mensajes.html">Mensajes</a>
+    </div>
+    <a href="donante/perfil.html" class="navbar-profile">
+      <span class="profile-icon">A</span>
+      Perfil
+    </a>
+  </nav>
+
+  <!-- REGISTRO FORM -->
+  <div class="form-wrapper">
+    <div class="form-card">
+      <h2 class="text-center">Crea tu cuenta 🌱</h2>
+      <p class="form-subtitle text-center">Únete a Cali Cambalache y comienza a hacer impacto</p>
+
+      <form action="donante/dashboard.html" method="get">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" class="form-control" placeholder="Tu nombre">
+          </div>
+          <div class="form-group">
+            <label for="apellido">Apellido</label>
+            <input type="text" id="apellido" class="form-control" placeholder="Tu apellido">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" class="form-control" placeholder="tu@correo.com">
+        </div>
+
+        <div class="form-group">
+          <label for="tel">Teléfono</label>
+          <input type="tel" id="tel" class="form-control" placeholder="+57 3XX XXX XXXX">
+        </div>
+
+        <div class="form-group">
+          <label for="pass">Contraseña</label>
+          <input type="password" id="pass" class="form-control" placeholder="Mínimo 8 caracteres">
+        </div>
+
+        <div class="form-group">
+          <label for="rol">Tipo de cuenta</label>
+          <select id="rol" class="form-control">
+            <option value="donante">Donante</option>
+            <option value="organizacion">Organización Receptora</option>
+          </select>
+        </div>
+
+        <a href="donante/dashboard.html" class="btn btn-primary btn-lg btn-block mt-4">
+          Crear cuenta
+        </a>
+      </form>
+
+      <div style="text-align:center; margin:var(--sp-6) 0 var(--sp-2); color:var(--gray-400); font-size:0.8125rem;">— o —</div>
+
+      <p class="text-center text-sm">
+        ¿Ya tienes cuenta?
+        <a href="login.html" style="color:var(--orange-500); font-weight:600;">Inicia sesión</a>
+      </p>
+    </div>
+  </div>
+
+</body>
+
+</html>
