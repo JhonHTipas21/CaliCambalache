@@ -87,7 +87,7 @@
         </div>
 
         <!-- Messages -->
-        <div class="chat-messages">
+        <div class="chat-messages" id="chat-messages">
 
           <div class="chat-date">HOY</div>
 
@@ -138,7 +138,7 @@
         <!-- Input -->
         <div class="chat-input">
           <div class="chat-input-row">
-            <input type="text" placeholder="Escribe tu mensaje aquí...">
+            <input type="text" id="message-input" placeholder="Escribe tu mensaje aquí..." onkeypress="handleKeyPress(event)">
             <span class="mic-btn">🎙️</span>
           </div>
         </div>
@@ -146,6 +146,97 @@
       </div>
     </div>
   </div>
+
+  <script>
+    const API_URL = 'http://localhost:3000/mensajes';
+    const chatContainer = document.getElementById('chat-messages');
+    const inputField = document.getElementById('message-input');
+
+    // 1. OBTENER MENSAJES (GET)
+    async function loadMessages() {
+      try {
+        const response = await fetch(API_URL);
+        const mensajes = await response.json();
+        
+        // Mantener el mensaje hardcoded de bienvenida o limpiarlo si se desea
+        // Para esta prueba, vamos a añadir los nuevos de la DB abajo
+        mensajes.forEach(msg => {
+          renderMessage(msg);
+        });
+      } catch (error) {
+        console.error('Error cargando mensajes de la DB:', error);
+      }
+    }
+
+    // 2. CREAR MENSAJE (POST)
+    async function sendMessage(text) {
+      if (!text.trim()) return;
+
+      const newMsg = {
+        sender_type: 'user',
+        sender_name: 'Donante', // O tomarlo del perfil logueado
+        content: text,
+        avatar: 'A'
+      };
+
+      try {
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(newMsg)
+        });
+
+        if (response.ok) {
+          const savedMsg = await response.json();
+          renderMessage(savedMsg);
+          inputField.value = ''; // Limpiar el input
+        }
+      } catch (error) {
+        console.error('Error enviando mensaje a la DB:', error);
+      }
+    }
+
+    function renderMessage(msg) {
+      // Formatear la hora
+      const time = msg.time ? new Date(msg.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : 'Ahora';
+      
+      let html = '';
+      if (msg.sender_type === 'system') {
+        html = `
+          <div class="msg system">
+            <div class="msg-avatar">${msg.avatar}</div>
+            <div>
+              <div class="msg-bubble">${msg.content}</div>
+              <div class="msg-time">${time}</div>
+            </div>
+          </div>
+        `;
+      } else {
+        html = `
+          <div class="msg user">
+            <div>
+              <div class="msg-bubble">${msg.content}</div>
+              <div class="msg-time" style="text-align:right;">${time}</div>
+            </div>
+            <div class="msg-avatar" style="background:#f97316; color:white; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; margin-left:8px;">${msg.avatar || 'U'}</div>
+          </div>
+        `;
+      }
+      chatContainer.insertAdjacentHTML('beforeend', html);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    function handleKeyPress(event) {
+      if (event.key === 'Enter') {
+        sendMessage(inputField.value);
+      }
+    }
+
+    // Cargar mensajes al iniciar
+    document.addEventListener('DOMContentLoaded', loadMessages);
+  </script>
 
 </body>
 

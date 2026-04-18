@@ -6,14 +6,14 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebas
 import { getAuth } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
 import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 
-// ── Configuración de Firebase (reemplazar con valores reales del proyecto) ──
+// ── Configuración de Firebase — proyecto calicambalache-fdfb4 ──
 const firebaseConfig = {
-    apiKey: "TU_API_KEY",
-    authDomain: "TU_PROYECTO.firebaseapp.com",
-    projectId: "TU_PROYECTO_ID",
-    storageBucket: "TU_PROYECTO.appspot.com",
-    messagingSenderId: "123456789",
-    appId: "1:123456789:web:abcdef"
+    apiKey: "AIzaSyB6YANOKH88QECDt3-TfUDAeEzmbKFKdi8",
+    authDomain: "calicambalache-fdfb4.firebaseapp.com",
+    projectId: "calicambalache-fdfb4",
+    storageBucket: "calicambalache-fdfb4.firebasestorage.app",
+    messagingSenderId: "890080125085",
+    appId: "1:890080125085:web:0f9e2fdd95d5e605a57474"
 };
 
 // ── Inicializar Firebase ──
