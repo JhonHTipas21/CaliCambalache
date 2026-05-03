@@ -1,18 +1,122 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro — CaliCambalache</title>
+    <title>Crear cuenta - CaliCambalache</title>
     <link rel="stylesheet" href="/css/main.css">
 </head>
+<body class="bg-gray-50 text-gray-900 min-h-screen flex items-center justify-center p-4 md:p-8">
+    <a href="#main" class="sr-only focus:not-sr-only bg-primary text-white px-4 py-2 absolute top-0 left-0 z-50">Saltar al contenido</a>
+    <main id="main" class="w-full max-w-5xl bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row">
+        <!-- Ilustración -->
+        <div class="hidden md:flex w-1/2 bg-primary-50 relative flex-col items-center justify-center p-12 text-center border-r border-gray-100">
+            <h2 class="text-3xl font-bold text-primary-700 mb-4">Únete a la comunidad</h2>
+            <p class="text-lg text-gray-600">Conectando alimentos con quienes más lo necesitan en Cali.</p>
+        </div>
 
-<body>
+        <!-- Formulario -->
+        <div class="w-full md:w-1/2 p-6 md:p-12">
+            <div class="text-center mb-8">
+                <h1 class="text-2xl font-bold text-primary flex items-center justify-center gap-2">
+                    <svg class="w-8 h-8" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    CaliCambalache
+                </h1>
+                <p class="text-gray-500 mt-2 font-medium">Crear cuenta</p>
+            </div>
 
-    <!-- Contenido del formulario de registro (selector de rol: donante / receptora) -->
+            <div id="error-global" role="alert" aria-live="assertive" class="hidden mb-6 p-4 bg-red-50 text-red-700 border border-red-200 rounded-md text-sm font-medium"></div>
+
+            <form id="form-registro" class="space-y-6" novalidate>
+                <fieldset>
+                    <legend class="text-sm font-semibold text-gray-700 mb-3">Tipo de cuenta</legend>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button type="button" id="card-donante" aria-pressed="false" aria-describedby="desc-donante"
+                            class="relative flex flex-col items-center p-4 border rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all text-center">
+                            <span class="text-2xl mb-1" aria-hidden="true">🍲</span>
+                            <span class="font-semibold text-gray-900">Donante</span>
+                            <span id="desc-donante" class="text-xs text-gray-500 mt-1">Tengo alimentos para compartir</span>
+                        </button>
+                        <button type="button" id="card-receptora" aria-pressed="false" aria-describedby="desc-receptora"
+                            class="relative flex flex-col items-center p-4 border rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-secondary transition-all text-center">
+                            <span class="text-2xl mb-1" aria-hidden="true">🏠</span>
+                            <span class="font-semibold text-gray-900">Organización Receptora</span>
+                            <span id="desc-receptora" class="text-xs text-gray-500 mt-1">Soy una fundación o comedor comunitario</span>
+                        </button>
+                    </div>
+                    <input type="hidden" id="rol" name="rol" value="">
+                    <span id="rol-error" class="hidden text-red-600 text-sm mt-2 block"></span>
+                </fieldset>
+
+                <div>
+                    <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre completo</label>
+                    <input type="text" id="nombre" name="nombre" aria-describedby="nombre-error" aria-required="true"
+                        class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                    <span id="nombre-error" class="hidden text-red-600 text-sm mt-1"></span>
+                </div>
+
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Correo electrónico</label>
+                    <input type="email" id="email" name="email" aria-describedby="email-error" aria-required="true"
+                        class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                    <span id="email-error" class="hidden text-red-600 text-sm mt-1"></span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <input type="password" id="password" name="password" aria-describedby="password-error" aria-required="true"
+                                class="block w-full px-3 py-3 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 sm:text-sm">
+                            <button type="button" id="toggle-password" aria-label="Mostrar contraseña" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 rounded">
+                                <svg class="h-5 w-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                            </button>
+                        </div>
+                        <div class="mt-2 w-full bg-gray-200 rounded-full h-1.5"><div id="barra-fortaleza" class="bg-gray-200 h-1.5 rounded-full w-0"></div></div>
+                        <div class="flex justify-between items-center mt-1">
+                            <p class="text-xs text-gray-500">Mínimo 8 caracteres, 1 mayúscula y 1 número</p>
+                            <span id="texto-fortaleza" class="text-xs"></span>
+                        </div>
+                        <span id="password-error" class="hidden text-red-600 text-sm mt-1"></span>
+                    </div>
+
+                    <div>
+                        <label for="password-confirm" class="block text-sm font-medium text-gray-700">Confirmar contraseña</label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <input type="password" id="password-confirm" name="password-confirm" aria-describedby="password-confirm-error" aria-required="true"
+                                class="block w-full px-3 py-3 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 sm:text-sm">
+                            <button type="button" id="toggle-password-confirm" aria-label="Mostrar contraseña" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 rounded">
+                                <svg class="h-5 w-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                            </button>
+                        </div>
+                        <span id="password-confirm-error" class="hidden text-red-600 text-sm mt-1"></span>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono <span class="text-gray-400 font-normal">(opcional)</span></label>
+                    <input type="tel" id="telefono" name="telefono" aria-describedby="telefono-error"
+                        class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                    <span id="telefono-error" class="hidden text-red-600 text-sm mt-1"></span>
+                </div>
+
+                <button type="submit" id="btn-registro" class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors disabled:opacity-75 disabled:cursor-not-allowed">
+                    <svg id="spinner-registro" class="hidden animate-spin -ml-1 mr-2 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span id="texto-btn-registro">Crear cuenta</span>
+                </button>
+            </form>
+
+            <div class="mt-6 text-center">
+                <p class="text-sm text-gray-600">
+                    ¿Ya tienes cuenta? <a href="/pages/login.html" class="font-medium text-primary hover:text-primary-500 focus:ring-2 focus:ring-primary-500 rounded outline-none">Inicia sesión</a>
+                </p>
+            </div>
+        </div>
+    </main>
 
     <script type="module" src="/js/registro.js"></script>
 </body>
-
 </html>

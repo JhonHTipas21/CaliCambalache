@@ -13,7 +13,7 @@ const firebaseConfig = {
     projectId: "calicambalache-fdfb4",
     storageBucket: "calicambalache-fdfb4.firebasestorage.app",
     messagingSenderId: "890080125085",
-    appId: "1:890080125085:web:0f9e2fdd95d5e605a57474"
+    appId: "1:890080125085:f9e2fdd95d5e605a57474"
 };
 
 // ── Inicializar Firebase ──

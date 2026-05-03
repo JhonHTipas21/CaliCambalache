@@ -1,18 +1,54 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Donante — CaliCambalache</title>
     <link rel="stylesheet" href="/css/main.css">
 </head>
+<body class="bg-gray-50 text-gray-900 font-sans min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-sm border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl mr-2">🍲</span>
+                    <span class="font-bold text-xl text-primary">CaliCambalache</span>
+                </div>
+                <div class="flex items-center" id="user-menu">
+                    <!-- App.js renderizará el nombre y botón de logout aquí -->
+                </div>
+            </div>
+        </div>
+    </nav>
 
-<body>
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
+            <h1 class="text-3xl font-bold text-gray-900 mb-4">Bienvenido a tu Panel de Donante</h1>
+            <p class="text-gray-600 mb-8">Gracias por unirte a la iniciativa. Desde aquí podrás publicar y gestionar tus donaciones de alimentos.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-primary-50 p-6 rounded-lg border border-primary-100 text-center">
+                    <div class="text-primary text-4xl mb-2">📦</div>
+                    <h3 class="font-semibold text-lg text-primary-900">Mis Donaciones</h3>
+                    <p class="text-sm text-primary-700 mt-1">Ver historial y estado</p>
+                </div>
+                <div class="bg-secondary-50 p-6 rounded-lg border border-secondary-100 text-center">
+                    <div class="text-secondary text-4xl mb-2">➕</div>
+                    <h3 class="font-semibold text-lg text-secondary-900">Nueva Donación</h3>
+                    <p class="text-sm text-secondary-700 mt-1">Publicar alimentos</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200 text-center">
+                    <div class="text-gray-500 text-4xl mb-2">⚙️</div>
+                    <h3 class="font-semibold text-lg text-gray-900">Configuración</h3>
+                    <p class="text-sm text-gray-600 mt-1">Mi perfil y preferencias</p>
+                </div>
+            </div>
+        </div>
+    </main>
 
-    <!-- Contenido del dashboard del donante -->
-
+    <script type="module" src="/js/app.js"></script>
     <script type="module" src="/js/donante/dashboard.js"></script>
 </body>
-
 </html>

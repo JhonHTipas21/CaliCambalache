@@ -6,23 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Mensajes — Cali Cambalache">
   <title>Mensajes — Cali Cambalache</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="/docs/css/styles.css">
 </head>
 
 <body>
 
   <!-- NAVBAR -->
   <nav class="navbar">
-    <a href="index.html" class="navbar-brand">
+    <a href="/docs/index.html" class="navbar-brand">
       <span class="logo-tri">A</span>
       Cali Cambalache
     </a>
     <div class="navbar-links">
-      <a href="index.html">Inicio</a>
-      <a href="donante/crear-publicacion.html">Donar</a>
-      <a href="mensajes.html" class="active">Mensajes</a>
+      <a href="/docs/index.html">Inicio</a>
+      <a href="/docs/donante/crear-publicacion.html">Donar</a>
+      <a href="/docs/mensajes.html" class="active">Mensajes</a>
     </div>
-    <a href="donante/perfil.html" class="navbar-profile">
+    <a href="/docs/donante/perfil.html" class="navbar-profile">
       <span class="profile-icon">A</span>
       Perfil
     </a>
@@ -44,7 +44,7 @@
 
         <div class="chat-list">
           <!-- Active conversation -->
-          <a href="mensajes.html" class="chat-item active">
+          <a href="/docs/mensajes.html" class="chat-item active">
             <div class="chat-item-avatar orange">🤖</div>
             <div class="chat-item-body">
               <div class="name">Asistente CaliCambal...</div>
@@ -53,7 +53,7 @@
             <span class="chat-item-time">10:41 AM</span>
           </a>
 
-          <a href="mensajes.html" class="chat-item">
+          <a href="/docs/mensajes.html" class="chat-item">
             <div class="chat-item-avatar gray">CE</div>
             <div class="chat-item-body">
               <div class="name">Comedor Esperanza</div>
@@ -64,7 +64,7 @@
         </div>
 
         <div class="chat-sidebar-footer">
-          <a href="donante/perfil.html">⚙️ Configuración</a>
+          <a href="/docs/donante/perfil.html">⚙️ Configuración</a>
         </div>
       </div>
 
@@ -81,8 +81,8 @@
             </div>
           </div>
           <div class="chat-actions">
-            <a href="mensajes.html" title="Llamar">📞</a>
-            <a href="mensajes.html" title="Videollamada">📹</a>
+            <a href="/docs/mensajes.html" title="Llamar">📞</a>
+            <a href="/docs/mensajes.html" title="Videollamada">📹</a>
           </div>
         </div>
 
@@ -113,7 +113,7 @@
 
               <!-- Suggestion cards -->
               <div class="suggestion-cards">
-                <a href="mensajes.html" class="suggestion-card">
+                <a href="/docs/mensajes.html" class="suggestion-card">
                   <div class="sug-avatar">👩‍🍳</div>
                   <div class="sug-info">
                     <span class="sug-name">Comedor Esperanza</span>
@@ -121,7 +121,7 @@
                     <span class="sug-dist">A 0.5 km</span>
                   </div>
                 </a>
-                <a href="mensajes.html" class="suggestion-card">
+                <a href="/docs/mensajes.html" class="suggestion-card">
                   <div class="sug-avatar">🏛️</div>
                   <div class="sug-info">
                     <span class="sug-name">Fundación Solidaria</span>
@@ -238,6 +238,7 @@
     document.addEventListener('DOMContentLoaded', loadMessages);
   </script>
 
+  <script type="module" src="/js/app.js"></script>
 </body>
 
 </html>
