@@ -1,4 +1,4 @@
-import { Injectable, ConflictException, UnauthorizedException, ForbiddenException, BadRequestException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, ForbiddenException, BadRequestException, ConflictException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import * as bcryptjs from 'bcryptjs';
@@ -33,6 +33,42 @@ export class AuthService {
     return { access_token, refresh_token };
   }
 
+  // ── OAuth 2.0 Google ──────────────────────────────────────────────────────
+  async loginConGoogle(profile: {
+    googleId: string;
+    email: string;
+    nombre: string;
+    avatar?: string;
+  }) {
+    const usuario = await this.usuariosService.findOrCreateGoogleUser(profile);
+
+    if (!usuario.activo) {
+      throw new ForbiddenException('Cuenta suspendida');
+    }
+
+    await this.usuariosService.actualizarUsuario(usuario._id.toString(), {
+      ultimoAcceso: new Date(),
+    });
+
+    const { access_token, refresh_token } = this.generarTokens({
+      sub: usuario._id.toString(),
+      email: usuario.email,
+      rol: usuario.rol,
+    });
+
+    const hashedRefreshToken = await bcryptjs.hash(refresh_token, 10);
+    await this.usuariosService.actualizarUsuario(usuario._id.toString(), {
+      refreshToken: hashedRefreshToken,
+    });
+
+    return {
+      usuario: usuario.toJSON(),
+      access_token,
+      refresh_token,
+    };
+  }
+
+  // ── Registro tradicional ──────────────────────────────────────────────────
   async registro(dto: RegistroDto) {
     if (dto.password !== dto.passwordConfirm) {
       throw new BadRequestException('Las contraseñas no coinciden');
@@ -61,36 +97,37 @@ export class AuthService {
       refreshToken: hashedRefreshToken,
     });
 
-    const usuarioParaRetornar = nuevoUsuario.toJSON();
-
     return {
-      usuario: usuarioParaRetornar,
+      usuario: nuevoUsuario.toJSON(),
       access_token,
       refresh_token,
     };
   }
 
+  // ── Login tradicional ─────────────────────────────────────────────────────
   async login(dto: LoginDto) {
     const usuario = await this.usuariosService.findByEmail(dto.email, true);
-    
+
     if (!usuario) {
       throw new UnauthorizedException('Email o contraseña incorrectos');
     }
 
+    // Usuarios OAuth sin contraseña local no pueden hacer login tradicional
+    if (!usuario.password) {
+      throw new UnauthorizedException('Esta cuenta usa Google para iniciar sesión');
+    }
+
     let passwordValida = false;
-    
-    // Primero intentamos comparar asumiendo que es un hash de bcrypt
+
     try {
       passwordValida = await bcryptjs.compare(dto.password, usuario.password);
     } catch (e) {
       passwordValida = false;
     }
 
-    // Si falla, verificamos si es una contraseña en texto plano (usuarios antiguos)
     if (!passwordValida) {
       if (dto.password === usuario.password) {
         passwordValida = true;
-        // Opcional: Actualizar la contraseña a bcrypt de forma silenciosa para el futuro
         const hashedPassword = await bcryptjs.hash(dto.password, 12);
         await this.usuariosService.actualizarUsuario(usuario._id.toString(), { password: hashedPassword });
       } else {
@@ -115,18 +152,19 @@ export class AuthService {
       refreshToken: hashedRefreshToken,
     });
 
-    const usuarioParaRetornar = usuario.toJSON();
-
     return {
-      usuario: usuarioParaRetornar,
+      usuario: usuario.toJSON(),
       access_token,
       refresh_token,
     };
   }
 
   async renovarTokens(userId: string, refreshToken: string) {
-    const usuario = await this.usuariosService.findByEmail((await this.usuariosService.findById(userId)).email, true);
-    
+    const usuario = await this.usuariosService.findByEmail(
+      (await this.usuariosService.findById(userId)).email,
+      true,
+    );
+
     if (!usuario || !usuario.refreshToken || !usuario.activo) {
       throw new ForbiddenException('No autorizado para renovar token');
     }
@@ -166,9 +204,16 @@ export class AuthService {
       throw new BadRequestException('Las contraseñas nuevas no coinciden');
     }
 
-    const usuario = await this.usuariosService.findByEmail((await this.usuariosService.findById(userId)).email, true);
+    const usuario = await this.usuariosService.findByEmail(
+      (await this.usuariosService.findById(userId)).email,
+      true,
+    );
     if (!usuario) {
       throw new UnauthorizedException('Usuario no encontrado');
+    }
+
+    if (!usuario.password) {
+      throw new BadRequestException('Los usuarios de Google no pueden cambiar contraseña aquí');
     }
 
     const passwordValida = await bcryptjs.compare(dto.passwordActual, usuario.password);
@@ -177,7 +222,7 @@ export class AuthService {
     }
 
     const hashedPassword = await bcryptjs.hash(dto.passwordNueva, 12);
-    
+
     await this.usuariosService.actualizarUsuario(userId, {
       password: hashedPassword,
       refreshToken: null,

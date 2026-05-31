@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (msg.includes('Failed to fetch')) {
         alert('Error de conexión: Verifica que el backend (NestJS) esté corriendo en el puerto 3000.');
       } else {
-        alert('Error: Correo o contraseña incorrectos');
+        alert(`Error: ${error.message || 'Correo o contraseña incorrectos'}`);
       }
     } finally {
       if (btnLogin) {

@@ -17,9 +17,13 @@ export class MensajesService {
     return createdMensaje.save();
   }
 
-  // Traer todos los mensajes
-  async findAll(): Promise<Mensaje[]> {
-    return this.mensajeModel.find().exec();
+  // Traer todos los mensajes (con filtro y población de referencias)
+  async findAll(query: any = {}): Promise<Mensaje[]> {
+    return this.mensajeModel
+      .find(query)
+      .populate('emisor', 'nombre email rol')
+      .populate('receptor', 'nombre email rol')
+      .exec();
   }
 
   // Traer un solo mensaje por ID

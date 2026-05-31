@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put, Query, UseGuards } from '@nestjs/common';
 import { MensajesService } from './mensajes.service';
 import { CreateMensajeDto } from './dto/create-mensaje.dto';
 import { UpdateMensajeDto } from './dto/update-mensaje.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('mensajes')
+@UseGuards(JwtAuthGuard)
 export class MensajesController {
   constructor(private readonly mensajesService: MensajesService) {}
 
@@ -15,8 +17,8 @@ export class MensajesController {
 
   // MÉTODO GET: LECTURA GENERAL (Todos los mensajes)
   @Get()
-  findAll() {
-    return this.mensajesService.findAll();
+  findAll(@Query() query: any) {
+    return this.mensajesService.findAll(query);
   }
 
   // MÉTODO GET: LECTURA INDIVIDUAL (Por ID)

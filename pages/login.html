@@ -10,8 +10,8 @@
     <a href="#main" class="sr-only focus:not-sr-only bg-primary text-white px-4 py-2 absolute top-0 left-0 z-50">Saltar al contenido</a>
     <main id="main" class="sm:mx-auto sm:w-full sm:max-w-md">
         <div class="text-center mb-6">
-            <h1 class="text-3xl font-extrabold text-primary flex items-center justify-center gap-2">
-                <svg class="w-10 h-10" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <h1 class="text-3xl font-extrabold text-primary flex items-center justify-center gap-3">
+                <img src="/assets/img/image.png" alt="Logo CaliCambalache" class="w-12 h-12 object-contain rounded-xl shadow-sm border border-orange-100">
                 CaliCambalache
             </h1>
             <h2 class="mt-4 text-2xl font-bold">Bienvenido de vuelta</h2>
@@ -60,8 +60,43 @@
                 </div>
             </form>
 
-            <div class="mt-6 text-center">
+            <!-- Divisor OAuth -->
+            <div class="mt-6">
+                <div class="relative">
+                    <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                        <div class="w-full border-t border-gray-300"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white text-gray-500">O continúa con</span>
+                    </div>
+                </div>
+
+                <!-- Botón Google Sign-In -->
+                <div class="mt-4">
+                    <a id="btn-google-login"
+                       href="http://localhost:3000/auth/google"
+                       class="w-full flex items-center justify-center gap-3 py-3 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors"
+                       aria-label="Iniciar sesión con Google">
+                        <!-- Logo Google SVG -->
+                        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+                            <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/>
+                            <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/>
+                            <path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/>
+                            <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z"/>
+                        </svg>
+                        Continuar con Google
+                    </a>
+                </div>
+            </div>
+
+            <div class="mt-6 text-center space-y-4">
                 <p class="text-sm text-gray-600">¿No tienes cuenta? <a href="/pages/registro.html" class="font-medium text-primary hover:text-primary-500 focus:ring-2 focus:ring-primary-500 rounded outline-none">Regístrate aquí</a></p>
+                <div class="border-t border-gray-100 pt-4">
+                    <a href="/index.html" class="inline-flex items-center justify-center gap-2 text-sm font-medium text-gray-500 hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 rounded-md px-3 py-2 hover:bg-gray-50">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                        Volver a la página principal
+                    </a>
+                </div>
             </div>
         </div>
     </main>

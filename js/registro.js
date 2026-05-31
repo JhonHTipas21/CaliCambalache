@@ -13,12 +13,62 @@ document.addEventListener('DOMContentLoaded', () => {
   const nombreInput = document.getElementById('nombreCompleto') || document.getElementById('nombre');
   const emailInput = document.getElementById('email');
   const passwordInput = document.getElementById('password') || document.getElementById('pass');
-  const passwordConfirmInput = document.getElementById('confirmarPassword');
+  const passwordConfirmInput = document.getElementById('confirmarPassword') || document.getElementById('password-confirm');
   const telefonoInput = document.getElementById('tel') || document.getElementById('telefono');
   const barraFortaleza = document.getElementById('password-strength-bar');
   const btnRegistro = document.getElementById('btnSubmit') || formRegistro.querySelector('button[type="submit"]') || formRegistro.querySelector('.btn');
 
+  // Elementos de selección de Rol
+  const cardDonante = document.getElementById('card-donante');
+  const cardReceptora = document.getElementById('card-receptora');
+  const rolInput = document.getElementById('rol');
+
   if (!formRegistro) return;
+
+  // Lógica de Selección Visual de Rol
+  function seleccionarRol(rol) {
+    if (rol === 'donante') {
+      if (rolInput) rolInput.value = 'donante';
+      if (cardDonante) {
+        cardDonante.setAttribute('aria-pressed', 'true');
+        cardDonante.classList.add('border-primary', 'bg-primary-50', 'ring-2', 'ring-primary-500');
+        cardDonante.classList.remove('border-gray-250', 'bg-white');
+      }
+      if (cardReceptora) {
+        cardReceptora.setAttribute('aria-pressed', 'false');
+        cardReceptora.classList.remove('border-secondary', 'bg-secondary-50', 'ring-2', 'ring-secondary');
+        cardReceptora.classList.add('border-gray-250', 'bg-white');
+      }
+    } else if (rol === 'receptora') {
+      if (rolInput) rolInput.value = 'receptora';
+      if (cardReceptora) {
+        cardReceptora.setAttribute('aria-pressed', 'true');
+        cardReceptora.classList.add('border-secondary', 'bg-secondary-50', 'ring-2', 'ring-secondary');
+        cardReceptora.classList.remove('border-gray-250', 'bg-white');
+      }
+      if (cardDonante) {
+        cardDonante.setAttribute('aria-pressed', 'false');
+        cardDonante.classList.remove('border-primary', 'bg-primary-50', 'ring-2', 'ring-primary-500');
+        cardDonante.classList.add('border-gray-250', 'bg-white');
+      }
+    }
+  }
+
+  if (cardDonante) {
+    cardDonante.addEventListener('click', () => seleccionarRol('donante'));
+  }
+  if (cardReceptora) {
+    cardReceptora.addEventListener('click', () => seleccionarRol('receptora'));
+  }
+
+  // Pre-seleccionar según query param, por defecto 'donante'
+  const urlParams = new URLSearchParams(window.location.search);
+  const roleParam = urlParams.get('rol') || urlParams.get('role');
+  if (roleParam === 'receptora' || roleParam === 'receptor') {
+    seleccionarRol('receptora');
+  } else {
+    seleccionarRol('donante');
+  }
 
   if (passwordInput && barraFortaleza) {
     passwordInput.addEventListener('input', () => {
@@ -38,13 +88,11 @@ document.addEventListener('DOMContentLoaded', () => {
   formRegistro.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    let rol = 'donante';
-    const rolRadio = document.querySelector('input[name="rol"]:checked');
-    if (rolRadio) {
-      rol = rolRadio.value;
-    } else {
-      const rolSelect = document.getElementById('rol');
-      if (rolSelect) rol = rolSelect.value;
+    const rol = rolInput ? rolInput.value : 'donante';
+
+    if (!rol) {
+      alert('Por favor selecciona el tipo de cuenta (Donante u Organización)');
+      return;
     }
 
     if (passwordConfirmInput && passwordInput.value !== passwordConfirmInput.value) {
@@ -82,3 +130,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+

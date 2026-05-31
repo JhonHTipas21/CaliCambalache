@@ -11,10 +11,11 @@ export class Usuario {
   @Prop({ required: true, unique: true, lowercase: true, trim: true, index: true })
   email: string;
 
-  @Prop({ required: true, select: false })
-  password: string;
+  // Opcional: usuarios OAuth no tienen contraseña local
+  @Prop({ select: false })
+  password?: string;
 
-  @Prop({ required: true, enum: ['donante', 'receptora', 'admin'], index: true })
+  @Prop({ required: true, enum: ['donante', 'receptora', 'admin'], default: 'donante', index: true })
   rol: string;
 
   @Prop()
@@ -31,6 +32,17 @@ export class Usuario {
 
   @Prop({ select: false })
   refreshToken?: string;
+
+  // ── OAuth Google ──
+  @Prop({ sparse: true, index: true })
+  googleId?: string;
+
+  @Prop()
+  avatar?: string;
+
+  // Indica si la cuenta fue creada via OAuth (sin contraseña local)
+  @Prop({ default: false })
+  esOAuth: boolean;
 }
 
 export const UsuarioSchema = SchemaFactory.createForClass(Usuario);

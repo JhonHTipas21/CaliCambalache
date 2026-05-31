@@ -4,16 +4,16 @@ import { authStore } from './auth-store.js';
 export function redirigirPorRol(rol) {
   switch (rol) {
     case 'donante':
-      window.location.href = '/docs/donante/dashboard.html';
+      window.location.href = '/pages/donante/dashboard.html';
       break;
     case 'receptora':
-      window.location.href = '/docs/index.html'; // Redirigimos a inicio temporalmente si no existe la carpeta receptora
+      window.location.href = '/pages/receptora/dashboard.html';
       break;
     case 'admin':
-      window.location.href = '/docs/index.html';
+      window.location.href = '/pages/admin/dashboard.html';
       break;
     default:
-      window.location.href = '/docs/login.html';
+      window.location.href = '/pages/login.html';
   }
 }
 

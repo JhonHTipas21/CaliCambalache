@@ -1,20 +1,421 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CaliCambalache — Reduce el desperdicio de alimentos en Cali, Colombia">
+    <meta name="description" content="CaliCambalache — Conectamos donantes de alimentos con familias que más lo necesitan en Cali, Colombia.">
     <title>CaliCambalache — Inicio</title>
     <link rel="stylesheet" href="/css/main.css">
-</head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ea580c;
+            --primary-dark: #9a3412;
+            --secondary: #10b981;
+            --secondary-dark: #059669;
+        }
 
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #1e293b; }
+
+        /* ── NAVBAR ── */
+        .navbar {
+            position: sticky; top: 0; z-index: 50;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0 1.5rem;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 64px;
+        }
+        .nav-brand { display: flex; align-items: center; gap: 0.5rem; font-weight: 800; font-size: 1.25rem; color: var(--primary); text-decoration: none; }
+        .nav-brand span { font-size: 1.5rem; }
+        .nav-links { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-links a { color: #475569; font-weight: 500; text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--primary); }
+        .nav-cta { display: flex; gap: 0.75rem; align-items: center; }
+        .btn-outline { padding: 0.5rem 1.25rem; border: 2px solid var(--primary); color: var(--primary); border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 0.875rem; transition: all 0.2s; }
+        .btn-outline:hover { background: var(--primary); color: white; }
+        .btn-primary { padding: 0.5rem 1.25rem; background: var(--primary); color: white; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 0.875rem; transition: all 0.2s; box-shadow: 0 2px 8px rgba(234,88,12,0.3); }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(234,88,12,0.4); }
+
+        /* ── HERO ── */
+        .hero {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 58, 95, 0.75) 50%, rgba(15, 23, 42, 0.9) 100%), url('assets/img/fofo.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 88vh;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center;
+            padding: 4rem 1.5rem;
+            position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 30% 50%, rgba(234,88,12,0.3) 0%, transparent 60%),
+                        radial-gradient(ellipse at 70% 50%, rgba(16,185,129,0.2) 0%, transparent 60%);
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 800px; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(234,88,12,0.2); border: 1px solid rgba(234,88,12,0.4); color: #fdba74; padding: 0.375rem 1rem; border-radius: 999px; font-size: 0.8rem; font-weight: 600; margin-bottom: 1.5rem; }
+        .hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; color: white; line-height: 1.15; margin-bottom: 1.25rem; }
+        .hero h1 span { background: linear-gradient(135deg, #f97316, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero p { font-size: 1.125rem; color: #94a3b8; max-width: 580px; margin: 0 auto 2.5rem; line-height: 1.7; }
+        .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .btn-hero-primary { padding: 0.875rem 2rem; background: linear-gradient(135deg, #ea580c, #f97316); color: white; border-radius: 12px; font-weight: 700; text-decoration: none; font-size: 1rem; transition: all 0.2s; box-shadow: 0 4px 20px rgba(234,88,12,0.4); }
+        .btn-hero-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(234,88,12,0.5); }
+        .btn-hero-secondary { padding: 0.875rem 2rem; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; font-weight: 600; text-decoration: none; font-size: 1rem; transition: all 0.2s; backdrop-filter: blur(8px); }
+        .btn-hero-secondary:hover { background: rgba(255,255,255,0.15); transform: translateY(-2px); }
+
+        /* ── STATS ── */
+        .stats { background: white; padding: 3rem 1.5rem; border-bottom: 1px solid #e2e8f0; }
+        .stats-grid { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 2rem; text-align: center; }
+        .stat-item {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .stat-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .stat-item:nth-child(1) { transition-delay: 0ms; }
+        .stat-item:nth-child(2) { transition-delay: 100ms; }
+        .stat-item:nth-child(3) { transition-delay: 200ms; }
+        .stat-item:nth-child(4) { transition-delay: 300ms; }
+        .stat-item h3 { font-size: 2.25rem; font-weight: 800; color: var(--primary); }
+        .stat-item p { font-size: 0.875rem; color: #64748b; font-weight: 500; margin-top: 0.25rem; }
+
+
+        /* ── CÓMO FUNCIONA ── */
+        .section { padding: 5rem 1.5rem; }
+        .section-title { text-align: center; margin-bottom: 3rem; }
+        .section-title h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-bottom: 0.75rem; }
+        .section-title p { color: #64748b; font-size: 1rem; max-width: 520px; margin: 0 auto; }
+        .section-inner { max-width: 1100px; margin: 0 auto; }
+
+        .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .step-card { background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 2rem; text-align: center; transition: all 0.3s; }
+        .step-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); border-color: var(--primary); }
+        .step-icon { width: 64px; height: 64px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.75rem; margin: 0 auto 1rem; }
+        .step-card h3 { font-size: 1.1rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem; }
+        .step-card p { font-size: 0.875rem; color: #64748b; line-height: 1.6; }
+        .step-number { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: var(--primary); color: white; border-radius: 50%; font-size: 0.8rem; font-weight: 700; margin-bottom: 1rem; }
+
+        /* ── ROLES ── */
+        .roles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .role-card { border-radius: 16px; padding: 2rem; transition: all 0.3s; }
+        .role-card:hover { transform: translateY(-4px); }
+        .role-card.donante { background: linear-gradient(135deg, #eef2ff, #e0e7ff); border: 1px solid #c7d2fe; }
+        .role-card.receptora { background: linear-gradient(135deg, #ecfdf5, #d1fae5); border: 1px solid #a7f3d0; }
+        .role-card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .role-card.donante h3 { color: #3730a3; }
+        .role-card.receptora h3 { color: #065f46; }
+        .role-card p { font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1.5rem; }
+        .role-card ul { list-style: none; margin-bottom: 1.5rem; }
+        .role-card ul li { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: #374151; padding: 0.25rem 0; }
+        .role-card ul li::before { content: '✓'; font-weight: 700; }
+        .role-card.donante ul li::before { color: var(--primary); }
+        .role-card.receptora ul li::before { color: var(--secondary); }
+        .btn-role { display: inline-block; padding: 0.625rem 1.5rem; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 0.875rem; transition: all 0.2s; }
+        .btn-role.donante { background: var(--primary); color: white; }
+        .btn-role.donante:hover { background: var(--primary-dark); }
+        .btn-role.receptora { background: var(--secondary); color: white; }
+        .btn-role.receptora:hover { background: var(--secondary-dark); }
+
+        /* ── CTA FINAL ── */
+        .cta-section { background: linear-gradient(135deg, #ea580c, #f97316); padding: 5rem 1.5rem; text-align: center; }
+        .cta-section h2 { font-size: 2rem; font-weight: 800; color: white; margin-bottom: 1rem; }
+        .cta-section p { color: rgba(255,255,255,0.85); font-size: 1rem; max-width: 480px; margin: 0 auto 2rem; }
+        .btn-cta-white { display: inline-block; padding: 0.875rem 2.5rem; background: white; color: var(--primary); border-radius: 12px; font-weight: 700; text-decoration: none; font-size: 1rem; transition: all 0.2s; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+        .btn-cta-white:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+
+        /* ── FOOTER ── */
+        .footer { background: #0f172a; color: #94a3b8; text-align: center; padding: 2rem 1.5rem; font-size: 0.875rem; }
+        .footer a { color: #818cf8; text-decoration: none; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 640px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
 <body>
 
-    <!-- Contenido de la Landing Page / Inicio -->
+    <!-- NAVBAR -->
+    <nav class="navbar" role="navigation" aria-label="Navegación principal">
+        <a href="/" class="nav-brand" aria-label="CaliCambalache inicio">
+            <img src="/assets/img/image.png" alt="Logo CaliCambalache" style="height: 36px; width: auto; object-fit: contain; border-radius: 8px;">
+            CaliCambalache
+        </a>
+        <div class="nav-links">
+            <a href="#como-funciona">¿Cómo funciona?</a>
+            <a href="#roles">Para ti</a>
+        </div>
+        <div class="nav-cta">
+            <a href="/pages/login.html" class="btn-outline" id="nav-login">Iniciar sesión</a>
+            <a href="/pages/registro.html" class="btn-primary" id="nav-registro">Registrarse</a>
+        </div>
+    </nav>
 
-    <script type="module" src="/js/app.js"></script>
-    <script type="module" src="/js/index.js"></script>
+    <!-- HERO -->
+    <main>
+        <section class="hero" aria-label="Bienvenida">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    🌱 Comunidad Cali — Reduciendo el desperdicio de alimentos
+                </div>
+                <h1>Conectamos <span>alimentos</span> con quienes más los necesitan</h1>
+                <p>
+                    CaliCambalache es la plataforma donde donantes de alimentos en Cali 
+                    se conectan directamente con familias y organizaciones que más los necesitan.
+                </p>
+                <div class="hero-buttons">
+                    <a href="/pages/registro.html" class="btn-hero-primary" id="hero-cta-registro">
+                        Comenzar gratis
+                    </a>
+                    <a href="/pages/login.html" class="btn-hero-secondary" id="hero-cta-login">
+                        Ya tengo cuenta →
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATS -->
+        <section class="stats" aria-label="Estadísticas">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>500+</h3>
+                    <p>Donaciones realizadas</p>
+                </div>
+                <div class="stat-item">
+                    <h3>1.200</h3>
+                    <p>Familias beneficiadas</p>
+                </div>
+                <div class="stat-item">
+                    <h3>3 ton</h3>
+                    <p>Alimentos rescatados</p>
+                </div>
+                <div class="stat-item">
+                    <h3>150+</h3>
+                    <p>Donantes activos</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CÓMO FUNCIONA -->
+        <section class="section" id="como-funciona" aria-label="Cómo funciona">
+            <div class="section-inner">
+                <div class="section-title">
+                    <h2>¿Cómo funciona?</h2>
+                    <p>Un proceso simple y transparente para conectar donantes con familias en Cali</p>
+                </div>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <div class="step-icon" style="background:#eef2ff;">📝</div>
+                        <h3>Regístrate</h3>
+                        <p>Crea tu cuenta como donante o receptora. Puedes usar tu correo o iniciar sesión con Google.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <div class="step-icon" style="background:#ecfdf5;">📦</div>
+                        <h3>Publica o solicita</h3>
+                        <p>Los donantes publican alimentos disponibles. Las familias envían solicitudes de lo que necesitan.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <div class="step-icon" style="background:#fff7ed;">🤝</div>
+                        <h3>Coordina la entrega</h3>
+                        <p>El donante acepta la solicitud y coordina la entrega directamente con la familia.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <div class="step-icon" style="background:#fdf4ff;">✅</div>
+                        <h3>Confirma y ayuda</h3>
+                        <p>Confirma la entrega y deja un impacto positivo en tu comunidad de Cali.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ROLES -->
+        <section class="section" id="roles" style="background:#f1f5f9;" aria-label="Tipos de usuario">
+            <div class="section-inner">
+                <div class="section-title">
+                    <h2>Elige tu rol</h2>
+                    <p>Participa como donante o como familia receptora — cada rol tiene su propio dashboard</p>
+                </div>
+                <div class="roles-grid">
+                    <div class="role-card donante">
+                        <div style="font-size:2.5rem; margin-bottom:0.75rem;">🥑</div>
+                        <h3>Soy Donante</h3>
+                        <p>Tengo alimentos que quiero compartir con familias que los necesitan en Cali.</p>
+                        <ul>
+                            <li>Publica alimentos disponibles</li>
+                            <li>Acepta solicitudes de familias</li>
+                            <li>Coordina entregas fácilmente</li>
+                            <li>Iniciar sesión con Google</li>
+                        </ul>
+                        <a href="/pages/registro.html?role=donante" class="btn-role donante" id="cta-donante">
+                            Registrarme como Donante
+                        </a>
+                    </div>
+                    <div class="role-card receptora">
+                        <div style="font-size:2.5rem; margin-bottom:0.75rem;">🏠</div>
+                        <h3>Soy Receptora</h3>
+                        <p>Mi familia necesita apoyo con alimentos y quiero conectar con donantes cercanos.</p>
+                        <ul>
+                            <li>Explora publicaciones disponibles</li>
+                            <li>Solicita alimentos directamente</li>
+                            <li>Recibe notificaciones en tiempo real</li>
+                            <li>Proceso 100% gratuito</li>
+                        </ul>
+                        <a href="/pages/registro.html?role=receptora" class="btn-role receptora" id="cta-receptora">
+                            Registrarme como Receptora
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA FINAL -->
+        <section class="cta-section" aria-label="Llamada a la acción">
+            <h2>¿Listo para hacer la diferencia?</h2>
+            <p>Únete a cientos de personas que ya están cambiando Cali, un alimento a la vez.</p>
+            <a href="/pages/registro.html" class="btn-cta-white" id="cta-final">
+                Crear cuenta gratis
+            </a>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer" role="contentinfo">
+        <p>© 2026 CaliCambalache — Hecho con ❤️ en Cali, Colombia &nbsp;|&nbsp;
+           <a href="/pages/login.html">Iniciar sesión</a> &nbsp;|&nbsp;
+           <a href="/pages/registro.html">Registrarse</a>
+        </p>
+    </footer>
+
+    <script type="module">
+        import { authStore } from '/utils/auth-store.js';
+
+        // Si ya está autenticado, mostrar botón al dashboard
+        if (authStore.isAuthenticated()) {
+            const rol = authStore.getRol();
+            const rutas = {
+                donante:   '/pages/donante/dashboard.html',
+                receptora: '/pages/receptora/dashboard.html',
+                admin:     '/pages/admin/dashboard.html',
+            };
+            const navCta = document.querySelector('.nav-cta');
+            navCta.innerHTML = `
+                <a href="/pages/chat.html" class="btn-outline mr-2" style="margin-right: 0.5rem;" id="nav-chat">
+                    💬 Mensajes
+                </a>
+                <a href="${rutas[rol] || '/pages/login.html'}" class="btn-primary" id="nav-dashboard">
+                    Mi Dashboard →
+                </a>`;
+        }
+
+        // Animación de conteo (reconteo) y fade-in de las estadísticas
+        const animateCount = (el) => {
+            const target = +el.dataset.target;
+            const hasPlus = el.dataset.hasPlus === 'true';
+            const hasTon = el.dataset.hasTon === 'true';
+            const hasDot = el.dataset.hasDot === 'true';
+            
+            let current = 0;
+            const duration = 2000; // 2 segundos de animación
+            const frameRate = 60;
+            const totalFrames = duration / (1000 / frameRate);
+            const increment = target / totalFrames;
+            let frame = 0;
+            
+            const updateCounter = () => {
+                frame++;
+                current += increment;
+                
+                let valueToShow = Math.floor(current);
+                if (valueToShow >= target) {
+                    valueToShow = target;
+                }
+                
+                // Formatear con separador de miles si es necesario
+                let formattedValue = valueToShow;
+                if (hasDot) {
+                    formattedValue = valueToShow.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                }
+                
+                // Añadir sufijos correspondientes
+                if (hasPlus) {
+                    el.innerText = formattedValue + '+';
+                } else if (hasTon) {
+                    el.innerText = formattedValue + ' ton';
+                } else {
+                    el.innerText = formattedValue;
+                }
+                
+                if (frame < totalFrames && valueToShow < target) {
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    // Asegurar precisión exacta en el último frame
+                    let finalValue = target;
+                    if (hasDot) {
+                        finalValue = target.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                    }
+                    el.innerText = finalValue + (hasPlus ? '+' : hasTon ? ' ton' : '');
+                }
+            };
+            
+            requestAnimationFrame(updateCounter);
+        };
+
+        const statsElements = document.querySelectorAll('.stat-item h3');
+        statsElements.forEach(stat => {
+            const text = stat.innerText.trim();
+            const numberMatch = text.replace(/\./g, '').match(/\d+/);
+            if (!numberMatch) return;
+            const target = parseInt(numberMatch[0], 10);
+            
+            const hasPlus = text.includes('+');
+            const hasTon = text.includes('ton');
+            const hasDot = text.includes('.');
+
+            // Inicializar el valor visual a 0 con sus respectivos sufijos
+            stat.innerText = '0' + (hasPlus ? '+' : hasTon ? ' ton' : '');
+            
+            stat.dataset.target = target;
+            stat.dataset.hasPlus = hasPlus;
+            stat.dataset.hasTon = hasTon;
+            stat.dataset.hasDot = hasDot;
+        });
+
+        const observerOptions = {
+            root: null,
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    const h3 = entry.target.querySelector('h3');
+                    if (h3 && !h3.classList.contains('animated')) {
+                        h3.classList.add('animated');
+                        animateCount(h3);
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.stat-item').forEach(item => {
+            observer.observe(item);
+        });
+    </script>
 </body>
-
 </html>

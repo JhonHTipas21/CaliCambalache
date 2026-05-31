@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autenticando... - CaliCambalache</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        /* ── Reset & base ───────────────────────────────────────── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f3460 100%);
+            color: #f8fafc;
+        }
+
+        /* ── Card ───────────────────────────────────────────────── */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            width: min(420px, 92vw);
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        /* ── Spinner animado ─────────────────────────────────────── */
+        .spinner-ring {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 1.75rem;
+            position: relative;
+        }
+        .spinner-ring svg {
+            animation: spin 1s linear infinite;
+            width: 100%;
+            height: 100%;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+        }
+
+        /* ── Texto ───────────────────────────────────────────────── */
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            margin-bottom: 2rem;
+        }
+
+        /* ── Barra de progreso ───────────────────────────────────── */
+        .progress-bar {
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            border-radius: 999px;
+            animation: progress 2s ease-out forwards;
+        }
+        @keyframes progress {
+            from { width: 0%; }
+            to   { width: 100%; }
+        }
+
+        /* ── Estado de error ─────────────────────────────────────── */
+        .error-icon {
+            display: none;
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 1.5rem;
+            background: rgba(239, 68, 68, 0.15);
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+        }
+        .error-icon svg { color: #ef4444; }
+
+        body.error .spinner-ring { display: none; }
+        body.error .error-icon   { display: flex; }
+        body.error .progress-bar { display: none; }
+        body.error h1 {
+            background: none;
+            -webkit-text-fill-color: #fca5a5;
+        }
+
+        /* ── Botón retry ─────────────────────────────────────────── */
+        .btn-retry {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 0.75rem 1.75rem;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+        .btn-retry:hover { opacity: 0.85; }
+        body.error .btn-retry { display: inline-block; }
+    </style>
+</head>
+<body>
+    <div class="card" role="status" aria-live="polite">
+        <!-- Spinner -->
+        <div class="spinner-ring" aria-hidden="true">
+            <svg viewBox="0 0 50 50" fill="none">
+                <circle cx="25" cy="25" r="20" stroke="rgba(255,255,255,0.1)" stroke-width="4"/>
+                <path d="M25 5 A20 20 0 0 1 45 25" stroke="url(#gradient)" stroke-width="4" stroke-linecap="round"/>
+                <defs>
+                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#3b82f6"/>
+                        <stop offset="100%" stop-color="#8b5cf6"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+
+        <!-- Icono de error (oculto por defecto) -->
+        <div class="error-icon" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="15" y1="9" x2="9" y2="15"/>
+                <line x1="9" y1="9" x2="15" y2="15"/>
+            </svg>
+        </div>
+
+        <h1 id="titulo">Autenticando con Google</h1>
+        <p class="subtitle" id="subtitulo">Verificando tu cuenta, un momento...</p>
+
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+
+        <a href="/pages/login.html" class="btn-retry" id="btn-retry">
+            Volver al inicio de sesión
+        </a>
+    </div>
+
+    <script>
+        /**
+         * oauth-callback.html
+         * Lee access_token y refresh_token de los query params,
+         * los guarda en localStorage y redirige al dashboard.
+         */
+        (function () {
+            const params = new URLSearchParams(window.location.search);
+            const accessToken  = params.get('access_token');
+            const refreshToken = params.get('refresh_token');
+            const error        = params.get('error');
+
+            function mostrarError(mensaje) {
+                document.body.classList.add('error');
+                document.getElementById('titulo').textContent    = 'Error de autenticación';
+                document.getElementById('subtitulo').textContent = mensaje || 'No se pudo completar el inicio de sesión con Google.';
+            }
+
+            if (error || !accessToken || !refreshToken) {
+                mostrarError(
+                    error === 'access_denied'
+                        ? 'Rechazaste el acceso a tu cuenta de Google.'
+                        : 'No se recibieron los tokens de autenticación.'
+                );
+                return;
+            }
+
+            try {
+                // Guardar tokens usando las mismas claves que authStore
+                localStorage.setItem('accessToken',  accessToken);
+                localStorage.setItem('refreshToken', refreshToken);
+
+                // Obtener perfil para saber el rol y redirigir
+                fetch('http://localhost:3000/auth/perfil', {
+                    headers: { Authorization: `Bearer ${accessToken}` },
+                })
+                .then(res => {
+                    if (!res.ok) throw new Error('Token inválido');
+                    return res.json();
+                })
+                .then(usuario => {
+                    localStorage.setItem('usuario', JSON.stringify(usuario));
+
+                    // Redirigir según el rol
+                    const rutas = {
+                        donante:   '/pages/donante/dashboard.html',
+                        receptora: '/pages/receptora/dashboard.html',
+                        admin:     '/pages/admin/dashboard.html',
+                    };
+                    const destino = rutas[usuario.rol] || '/pages/index.html';
+                    window.location.replace(destino);
+                })
+                .catch(() => {
+                    // Si el perfil falla, ir a inicio
+                    window.location.replace('/index.html');
+                });
+
+            } catch (e) {
+                mostrarError('Error inesperado al guardar la sesión.');
+            }
+        })();
+    </script>
+</body>
+</html>

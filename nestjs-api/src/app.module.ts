@@ -6,6 +6,8 @@ import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthModule } from './auth/auth.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
+import { PublicacionesModule } from './publicaciones/publicaciones.module';
+import { SolicitudesModule } from './solicitudes/solicitudes.module';
 
 @Module({
   imports: [
@@ -21,6 +23,8 @@ import { UsuariosModule } from './usuarios/usuarios.module';
     ThrottlerModule.forRoot([{ ttl: 60000, limit: 10 }]),
     AuthModule,
     UsuariosModule,
+    PublicacionesModule,
+    SolicitudesModule,
   ],
   providers: [
     {
@@ -30,3 +34,4 @@ import { UsuariosModule } from './usuarios/usuarios.module';
   ],
 })
 export class AppModule {}
+

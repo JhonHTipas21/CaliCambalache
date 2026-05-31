@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Schema as MongooseSchema } from 'mongoose';
 
 export type MensajeDocument = Mensaje & Document;
 
@@ -22,6 +22,15 @@ export class Mensaje {
 
   @Prop({ default: false })
   isRead: boolean; // Si ha sido leído
+
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Solicitud', required: false, index: true })
+  solicitud?: string;
+
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Usuario', required: false, index: true })
+  emisor?: string;
+
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Usuario', required: false, index: true })
+  receptor?: string;
 }
 
 // Genera el esquema de mongoose

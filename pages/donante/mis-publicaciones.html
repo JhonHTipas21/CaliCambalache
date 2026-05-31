@@ -1,18 +1,129 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis Publicaciones — Donante — CaliCambalache</title>
+    <title>Mis Donaciones — Donante — CaliCambalache</title>
     <link rel="stylesheet" href="/css/main.css">
 </head>
+<body class="bg-gray-50 text-gray-900 font-sans min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/pages/donante/dashboard.html" class="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
+                        <img src="/assets/img/image.png" alt="Logo CaliCambalache" class="h-9 w-auto object-contain rounded-lg shadow-sm border border-orange-100/50">
+                        <span class="font-bold text-xl text-primary">CaliCambalache</span>
+                    </a>
+                </div>
+                <div class="flex items-center" id="user-menu">
+                    <!-- Renderizado por app.js -->
+                </div>
+            </div>
+        </div>
+    </nav>
 
-<body>
+    <!-- Header & Back Button -->
+    <div class="bg-white border-b border-gray-200 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row sm:items-center justify-between">
+            <div class="flex items-center gap-4">
+                <a href="/pages/donante/dashboard.html" class="text-gray-400 hover:text-primary transition-colors bg-gray-50 hover:bg-primary-50 p-2 rounded-full">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                </a>
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900">Mis Donaciones</h1>
+                    <p class="text-sm text-gray-500 mt-1">Historial y estado de los alimentos que has compartido.</p>
+                </div>
+            </div>
+            <a href="/pages/donante/crear-publicacion.html" class="mt-4 sm:mt-0 inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark transition-all transform hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                Nueva Donación
+            </a>
+        </div>
+    </div>
 
-    <!-- Contenido del listado de publicaciones propias del donante -->
+    <!-- Main Content (Lista dinámica) -->
+    <main class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+        <!-- Ejemplo de Lista con elementos ficticios para demostrar la UI -->
+        <!-- En producción, JS limpiará este contenedor y lo llenará -->
+        <div id="lista-donaciones" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- Card 1: Activa -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow group">
+                <div class="h-40 bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center relative">
+                    <span class="text-5xl">🥕</span>
+                    <span class="absolute top-3 right-3 bg-green-100 text-green-800 text-xs font-bold px-2.5 py-1 rounded-full border border-green-200">Activo</span>
+                </div>
+                <div class="p-5">
+                    <div class="text-xs text-gray-500 font-medium mb-1">Perecederos • Creado el 25 May 2026</div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">Verduras Mixtas y Frutas</h3>
+                    <p class="text-sm text-gray-600 mb-4 line-clamp-2">Una caja de verduras y frutas en perfecto estado, ideal para sopa o jugos.</p>
+                    
+                    <div class="flex items-center justify-between border-t border-gray-100 pt-4 mt-2">
+                        <div class="flex items-center text-sm text-gray-500">
+                            <span class="mr-1">📦</span> 15 porciones
+                        </div>
+                        <a href="#" class="text-sm font-medium text-primary hover:text-primary-dark">Ver detalles →</a>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Card 2: Pendiente -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow group">
+                <div class="h-40 bg-gradient-to-br from-amber-50 to-amber-100 flex items-center justify-center relative">
+                    <span class="text-5xl">🥖</span>
+                    <span class="absolute top-3 right-3 bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-1 rounded-full border border-amber-200">Solicitado</span>
+                </div>
+                <div class="p-5">
+                    <div class="text-xs text-gray-500 font-medium mb-1">Panadería • Creado el 24 May 2026</div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">Pan tajado y cruasanes</h3>
+                    <p class="text-sm text-gray-600 mb-4 line-clamp-2">Excedentes frescos de panadería local del día de hoy.</p>
+                    
+                    <div class="flex items-center justify-between border-t border-gray-100 pt-4 mt-2">
+                        <div class="flex items-center text-sm text-gray-500">
+                            <span class="mr-1">📦</span> 30 porciones
+                        </div>
+                        <a href="#" class="text-sm font-medium text-amber-600 hover:text-amber-700">Gestionar entrega →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Entregada -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden opacity-75 hover:opacity-100 transition-opacity">
+                <div class="h-40 bg-gray-100 flex items-center justify-center relative grayscale">
+                    <span class="text-5xl">🍲</span>
+                    <span class="absolute top-3 right-3 bg-gray-200 text-gray-700 text-xs font-bold px-2.5 py-1 rounded-full border border-gray-300">Entregado</span>
+                </div>
+                <div class="p-5">
+                    <div class="text-xs text-gray-500 font-medium mb-1">Comida Preparada • Creado el 20 May 2026</div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Sopa de lentejas</h3>
+                    <p class="text-sm text-gray-600 mb-4 line-clamp-2">Sopa preparada sobrante de restaurante, bien empacada.</p>
+                    
+                    <div class="flex items-center justify-between border-t border-gray-100 pt-4 mt-2">
+                        <div class="flex items-center text-sm text-gray-500">
+                            <span class="mr-1">✅</span> Entregado el 21 May
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Estado Vacío (Oculto por defecto, JS lo muestra si no hay donaciones) -->
+        <div id="estado-vacio" class="hidden text-center py-20 px-4 bg-white rounded-2xl shadow-sm border border-dashed border-gray-300 mt-6">
+            <div class="mx-auto w-24 h-24 bg-primary-50 text-primary rounded-full flex items-center justify-center text-4xl mb-4">
+                🎁
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">Aún no tienes donaciones</h2>
+            <p class="text-gray-500 max-w-md mx-auto mb-6">Comparte alimentos y ayuda a reducir el hambre en tu comunidad. ¡Es rápido y sencillo!</p>
+            <a href="/pages/donante/crear-publicacion.html" class="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-primary hover:bg-primary-dark transition-transform transform hover:-translate-y-1">
+                Crear tu primera donación
+            </a>
+        </div>
+    </main>
+
+    <script type="module" src="/js/app.js"></script>
     <script type="module" src="/js/donante/mis-publicaciones.js"></script>
 </body>
-
 </html>

@@ -11,7 +11,7 @@ export async function logout() {
     console.error('Error en logout:', error);
   } finally {
     authStore.clear();
-    window.location.href = '/docs/login.html';
+    window.location.href = '/pages/login.html';
   }
 }
 
@@ -25,6 +25,9 @@ export function renderizarNavbar() {
       const rol = authStore.getRol();
       userMenu.innerHTML = `
         <div class="flex items-center space-x-4">
+          <a href="/pages/chat.html" class="text-sm font-bold text-primary hover:underline flex items-center gap-1">
+            💬 <span class="hidden sm:inline">Mensajes</span>
+          </a>
           <div class="text-right">
             <p class="text-sm font-semibold text-gray-900">${nombre}</p>
             <p class="text-xs text-gray-500 capitalize">${rol}</p>
@@ -36,8 +39,8 @@ export function renderizarNavbar() {
       document.getElementById('btn-logout').addEventListener('click', logout);
     } else {
       userMenu.innerHTML = `
-        <a href="/docs/login.html" class="text-indigo-600 font-medium hover:text-indigo-800">Iniciar sesión</a>
-        <a href="/docs/registro.html" class="ml-4 bg-indigo-600 text-white px-4 py-2 rounded-md font-medium hover:bg-indigo-700">Registrarse</a>
+        <a href="/pages/login.html" class="text-primary font-medium hover:text-primary-800">Iniciar sesión</a>
+        <a href="/pages/registro.html" class="ml-4 bg-primary text-white px-4 py-2 rounded-md font-medium hover:bg-primary-700">Registrarse</a>
       `;
     }
   }
@@ -63,7 +66,7 @@ export function renderizarNavbar() {
         <span class="profile-icon">👤</span>
         Iniciar sesión
       `;
-      if (navProfile.tagName === 'A') navProfile.href = "/docs/login.html";
+      if (navProfile.tagName === 'A') navProfile.href = "/pages/login.html";
     }
   }
 
